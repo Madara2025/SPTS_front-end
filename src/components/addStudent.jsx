@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
 
 
 function Add_Student() {
@@ -53,10 +52,19 @@ function Add_Student() {
 
             });
 
-            console.log('Student addedd successfully: ', response.data);
+            console.log('Student added successfully: ', response.data);
+            alert('Student added successfully');
+           
 
         } catch (error) {
             console.error('Error adding student:', error);
+            if(error.response && error.response.data && error.response.data.error){
+                alert(error.response.data.error);
+            }else {
+                alert('An unexpected error occurred.');
+            }
+
+            
         }
     };
 
@@ -121,10 +129,10 @@ function Add_Student() {
                     </Col>
                     <Col md={6}>
                         <Form.Group className="mb-3">
-                            <Form.Label>Date_of_birth</Form.Label>
+                            <Form.Label>Date of birth</Form.Label>
                             <Form.Control
                                 type="date"
-                                name="birth_day"
+                                name="date_of_birth"
                                 value={values.date_of_birth}
                                 onChange={handleChange}
                             

@@ -8,7 +8,7 @@ import Update_Student from './components/updateStudent';
 import TeacherTable from './pages/teacherManagement';
 import Update_Teacher from './components/updateTeacher';
 import Add_Teacher from './components/addTeacher';
-
+import Add_Attendance from './components/addattendance';
 
 
 function App() {
@@ -22,6 +22,8 @@ function App() {
         <Route path = "/teacherManagement" element = {<TeacherTable/>} />
         <Route path = "/teacherManagement/addteacher" element = {<Add_Teacher/>} />
         <Route path = "/teacherManagement/addstudent" element = {<Update_Teacher/>} />
+        <Route path = "/addAttendance" element = {<Add_Attendance/>}/>
+        <Route path = "/login" element = {<Login/>}/>
       </Routes>
     
     </BrowserRouter>

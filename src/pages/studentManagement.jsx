@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Container, Row, Col, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 function StudentTable() {
   const [students, setStudents] = useState([]);
@@ -13,6 +13,7 @@ function StudentTable() {
       try {
         const response = await axios.get('http://127.0.0.1:5000/students');
         setStudents(response.data);
+        console.log(response.data);
       } catch (error) {
 
         console.error("Error fetching students:", error);
@@ -37,10 +38,13 @@ function StudentTable() {
     try {
       await axios.put(`http://127.0.0.1:5000//students/remove/${index_number}`, { permission: "FALSE" });
       navigate(`/studentManagement`);
+      alert("Successfully removed" + index_number)
 
       // After removing permission, refresh the employee list
       const response = await axios.get(`http://127.0.0.1:5000/students`);
       setStudents(response.data);
+      console.log(response.data)
+      
     } catch (error) {
       console.error('Error removing permission:', error);
     }
@@ -52,6 +56,7 @@ function StudentTable() {
     try {
       await axios.put(`http://127.0.0.1:5000//students/remove/${index_number}`, { permission: "TRUE" });
       navigate(`/studentManagement`);
+      alert("Successfully Actived" + index_number)
 
       const response = await axios.get(`http://127.0.0.1:5000/students`);
       setStudents(response.data);
@@ -98,9 +103,8 @@ function StudentTable() {
           </thead>
           <tbody>
             {students.map((student) => (
-              <tr key={student.student_ID}>
-                <td>{student.student_ID}</td>
-                <td>{student.index_number}</td>
+              <tr key={student.student_id}>
+                <td>{student.student_id}</td>
                 <td>{student.last_name}</td>
                 <td>{student.other_names}</td>
                 <td>{student.address}</td>
@@ -111,6 +115,8 @@ function StudentTable() {
                 <td>{student.contact_number}</td>
                 <td>{student.parent_nic}</td>
                 <td>{student.user_name}</td>
+                <td>{student.index_number}</td>
+                <td>{student.class_id}</td>
                 <td>
                   <Button onClick={() => handleUpdate(student.index_number)} variant="outline-success" size="sm">
                     Update
