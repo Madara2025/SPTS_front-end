@@ -8,7 +8,7 @@ import Update_Student from './components/updateStudent';
 import TeacherTable from './pages/teacherManagement';
 import Update_Teacher from './components/updateTeacher';
 import Add_Teacher from './components/addTeacher';
-import Add_Attendance from './components/addattendance';
+import Add_Attendance from './components/addAttendance';
 
 
 function App() {

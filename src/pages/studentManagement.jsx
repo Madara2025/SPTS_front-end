@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Table, Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
 function StudentTable() {
   const [students, setStudents] = useState([]);
   const navigate = useNavigate();
+  const [alerts, setAlert] = useState({ show: false, message: '', variant: '' });
 
+
+  // Function to fetch student data
+  const fetchStudents = async () => {
+    try {
+      const response = await api.get('/students');
+      setStudents(response.data);
+      console.log(response.data);
+    } catch (error) {
+
+      console.error("Error fetching students:", error);
+    }
+  };
+  //fetch student details from backend
   useEffect(() => {
-    // Function to fetch student data
-    const fetchStudents = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:5000/students');
-        setStudents(response.data);
-        console.log(response.data);
-      } catch (error) {
-
-        console.error("Error fetching students:", error);
-      }
-    };
-
     fetchStudents();
   }, []); // Empty dependency array 
 
@@ -36,15 +38,15 @@ function StudentTable() {
   //Remove Student Access
   const handleRemovePermission = async (index_number) => {
     try {
-      await axios.put(`http://127.0.0.1:5000//students/remove/${index_number}`, { permission: "FALSE" });
+      await api.put(`/students/remove/${index_number}`, { permission: "FALSE" });
       navigate(`/studentManagement`);
       alert("Successfully removed" + index_number)
 
       // After removing permission, refresh the employee list
-      const response = await axios.get(`http://127.0.0.1:5000/students`);
+      const response = await api.get(`/students`);
       setStudents(response.data);
       console.log(response.data)
-      
+
     } catch (error) {
       console.error('Error removing permission:', error);
     }
@@ -54,17 +56,17 @@ function StudentTable() {
   //Give Student Access
   const handleGivePermission = async (index_number) => {
     try {
-      await axios.put(`http://127.0.0.1:5000//students/remove/${index_number}`, { permission: "TRUE" });
+      await api.put(`/students/remove/${index_number}`, { permission: "TRUE" });
       navigate(`/studentManagement`);
       alert("Successfully Actived" + index_number)
 
-      const response = await axios.get(`http://127.0.0.1:5000/students`);
+      const response = await api.get(`/students`);
       setStudents(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error('Error giveing permission:', error);
     }
   };
-
 
   return (
     <Container fluid>
@@ -126,15 +128,13 @@ function StudentTable() {
                   {student.permission === "TRUE" ? (
                     <Button
                       onClick={() => handleRemovePermission(student.index_number)}
-                      variant="outline-secondary"
-                      size="sm"
-                    >
-                      Active
+                      variant="outline-secondary" size="sm"
+                    > Active
                     </Button>
                   ) : (
-                    <Button 
-                    onClick={() => handleGivePermission(student.index_number)}
-                    variant="outline-danger" size="sm" >
+                    <Button
+                      onClick={() => handleGivePermission(student.index_number)}
+                      variant="outline-danger" size="sm" >
                       Removed
                     </Button>
                   )}

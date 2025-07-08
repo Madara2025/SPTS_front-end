@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container, Table, Dropdown } from 'react-bootstrap';
+import { Form, Button, Container, Table, ToggleButton } from 'react-bootstrap';
 import axios from 'axios';
 //import { useNavigate } from 'react-router-dom';
 
 function Add_Attendance() {
-    const [attendanceRecords, setAttendanceRecords] = useState([]);
+    const [sdetails, setSdetails] = useState([]);
+    const [isPresent, setIsPresent] = useState(false); // Initialize as absent (unchecked)
+
+    const handleAttendance = (event) => {
+        // event.currentTarget.checked gives the boolean checked status of the checkbox
+        setIsPresent(event.currentTarget.checked);
+        //console.log(`Toggle button is now: ${event.currentTarget.checked ? 'Present' : 'Absent'}`);
+    };
+
     //const navigate = useNavigate();
 
     useEffect(() => {
@@ -12,7 +20,7 @@ function Add_Attendance() {
         const fetchStudents = async () => {
             try {
                 const response = await axios.get('http://127.0.0.1:5000/students/class/1');
-                setAttendanceRecords(response.data);
+                setSdetails(response.data);
                 console.log(response.data);
             } catch (error) {
 
@@ -25,36 +33,53 @@ function Add_Attendance() {
 
     return (
         <Container className="mt-4">
-            
             <h2 className="mb-4">Add Attendance</h2>
+            <div className="d-flex gap-2 mb-2">
+                <Button variant="primary" size="lg" >
+                    Class Name -
+                </Button>
+                <Button variant="primary" size="lg" >
+                    Teacher's Name -
+                </Button>
+                <Button variant="primary" size="lg" >
+                    Date -
+                </Button>
+            </div>
             <Form>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Student ID</th>
                             <th>Index Number</th>
                             <th>Last Name</th>
                             <th>Other Names</th>
-                            <th>Grade</th>
-                            <th>Class Name</th>
                             <th>Status</th>
                         </tr>
                     </thead>
-                   <tbody>
-                        {attendanceRecords.map((record) => (
+                    <tbody>
+                        {sdetails.map((details) => (
                             // Add the key prop here, using record.student_id as the unique key
-                            <tr key={record.student_id}>
-                                <td>{record.student_id}</td>
-                                <td>{record.index_number}</td>
-                                <td>{record.student_last_name}</td>
-                                <td>{record.student_other_names}</td>
-                                <td>{record.grade}</td>
-                                <td>{record.class_name}</td>
-                                <td> </td>
+                            <tr key={details.student_id}>
+                                <td>{details.index_number}</td>
+                                <td>{details.last_name}</td>
+                                <td>{details.other_names}</td>
+                                <td><ToggleButton
+                                    className="mb-2"
+                                    id="toggle-check"
+                                    type="checkbox"
+                                    variant={isPresent ? 'success' : 'danger'}
+                                    checked={isPresent}
+                                    value="1"
+                                    onChange={handleAttendance}
+                                >
+                                    {isPresent ? 'Present' : 'Absent'}
+                                </ToggleButton> </td>
                             </tr>
                         ))}
                     </tbody>
                 </Table>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
             </Form>
         </Container>
     );
