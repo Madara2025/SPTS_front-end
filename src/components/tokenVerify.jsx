@@ -1,18 +1,17 @@
 import axios from 'axios';
 
-const tokenVerify = async (navigate) => {
+const VerifyToken = async (navigate) => {
     const token = localStorage.getItem('token');
-    if (!token){
-        console.log("No token found");
+    if (!token) {
+        console.log("No token found.");
         return false;
     }
 
-
-    try{
+    try {
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
         const response = await axios.get(`${backendUrl}/verify-token`, {
             headers: {
-                Authorization: 'Bearer ${token}'
+                Authorization: `Bearer ${token}`
             }
         });
 
@@ -27,4 +26,4 @@ const tokenVerify = async (navigate) => {
     }
 };
 
-export default tokenVerify;
+export default VerifyToken;

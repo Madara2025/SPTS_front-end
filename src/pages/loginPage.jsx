@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../pages/loginPage.css'
-import tokenVerify from '../components/tokenVerify';
+import VerifyToken from '../components/tokenVerify';
 
 
 function Login() {
@@ -20,7 +20,7 @@ function Login() {
 
     try {
       const backendUrl = import.meta.env.VITE_BACKEND_URL;
-      const response = await axios.post('http://localhost:5000/login', {
+      const response = await axios.post(`${backendUrl}/login`, {
         user_name: user_name,
         password: password,
       });
@@ -29,15 +29,17 @@ function Login() {
 
       localStorage.setItem('token', response.data.token);
       // console.log(response.data);
-      await tokenVerify();
+      await VerifyToken();
 
 
       // Check for admin role and redirect accordingly
       if (response.data.user && response.data.user.permission == "TRUE" && response.data.user.role == "Administrator") {
         navigate('/studentManagement');
+
       }
       else if (response.data.user && response.data.user.permission == "TRUE" && response.data.user.role == "teacher") {
         navigate('/studentManagement');
+
       } else {
         console.log("Permission Removed")
         alert('Permission denied. Please contact your administrator')
@@ -78,7 +80,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
           </Form.Group>
-          
+
           <div className="d-flex justify-content-end">
             <Button variant="primary" type="submit" >
               Login
