@@ -10,13 +10,9 @@ function Login() {
   const [user_name, setUser_name] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
 
     try {
       const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -25,8 +21,8 @@ function Login() {
         password: password,
       });
 
-      setSuccess(response.data.message);
-
+      const { user_id } = response.data.user;
+      
       localStorage.setItem('token', response.data.token);
       // console.log(response.data);
       await VerifyToken();
@@ -38,7 +34,7 @@ function Login() {
 
       }
       else if (response.data.user && response.data.user.permission == "TRUE" && response.data.user.role == "teacher") {
-        navigate('/teacherManagement/addteacher');
+        navigate(`/teacherPage/${user_id}`);
 
       }
       else if (response.data.user && response.data.user.permission == "TRUE" && response.data.user.role == "student") {
@@ -51,9 +47,9 @@ function Login() {
 
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
-        setError(err.response.data.error);
+        console.error(err.response.data.error);
       } else {
-        setError('An error occurred. Please try again.');
+        console.error('An error occurred. Please try again.');
       }
       console.error('Login error:', err); // Log the error
       console.error(err.response.data.error);
