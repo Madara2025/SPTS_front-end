@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import api from '../api';
 
 function StudentTable() {
-  const [students, setStudents] = useState([]);
   const navigate = useNavigate();
-  const [alerts, setAlert] = useState({ show: false, message: '', variant: '' });
-
+  const [students, setStudents] = useState([]);
+  
 
   // Function to fetch student data
   const fetchStudents = async () => {
@@ -98,7 +97,7 @@ function StudentTable() {
               <th>Parent NIC</th>
               <th>User Name</th>
               <th>Index Number</th>
-              <th>Class_ID</th>
+              <th>Class</th>
               <th>Update Student</th>
               <th>Change Access</th>
             </tr>
@@ -118,7 +117,7 @@ function StudentTable() {
                 <td>{student.parent_nic}</td>
                 <td>{student.user_name}</td>
                 <td>{student.index_number}</td>
-                <td>{student.class_id}</td>
+                <td>{student.grade}{student.class_name}</td>
                 <td>
                   <Button onClick={() => handleUpdate(student.index_number)} variant="outline-success" size="sm">
                     Update

@@ -22,6 +22,9 @@ const VerifyToken = async (navigate) => {
         console.error("Token verification failed:", error.response?.data || error.message);
         alert("Session expired. Please login again.");
         localStorage.removeItem('token');
+        if (navigate) {
+            navigate('/login'); // Redirect to login on token verification failure
+        }
         return false; 
     }
 };

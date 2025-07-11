@@ -1,0 +1,82 @@
+/* src/pages/AdminPage.css */
+
+/* Styles for the main container */
+.admin-page-container {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    /* Add some padding for smaller screens */
+}
+
+/* Styles for the Card component */
+.admin-card {
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 2rem;
+  width: 100%; /* Ensure card takes full width on small screens */
+  max-width: 900px; /* Limit max width for larger screens */
+  position: relative; /* Ensure z-index works correctly for children */
+}
+
+/* Styles for the Card Title */
+.admin-card-title {
+    color: #1A0585;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+.dropdown-menu {
+  z-index: 1050; /* A high z-index to ensure it's on top */
+  position: absolute; /* Important for z-index to work reliably */
+}
+/* Common styles for all buttons */
+.admin-button {
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 1.2rem;
+    background-color: #084285;
+    border-color: #1A0585;
+    border-radius: 0.75rem;
+    white-space: nowrap;
+    /* Prevents text from wrapping */
+    overflow: hidden;
+    /* Hides any overflowing content */
+    text-overflow: ellipsis;
+    /* Adds an ellipsis (...) if text overflows */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for buttons */
+.admin-button.hover-effect:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background-color: #14046b;
+    /* Slightly darker on hover */
+    border-color: #14046b;
+}
+
+/* .admin-card-p {
+    color: #010619d3;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+} */
+
+/* Responsive font size for title on smaller screens */
+@media (max-width: 768px) {
+    .admin-card-title {
+        font-size: 2rem;
+    }
+
+    .admin-button {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-card-title {
+        font-size: 1.8rem;
+    }
+}

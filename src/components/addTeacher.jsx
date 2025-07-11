@@ -5,13 +5,14 @@
     
     
     function Add_Teacher() {
+        const navigate = [useNavigate]// why this serch
         const [values, setValues] = useState({
             emp_id: '',
             last_name: '',
             other_names: '',
             address: '',
             email: '',
-            birth_day: '',
+            date_of_birth: '',
             personal_title: '',
             role: '',
             contact_number: '',
@@ -40,7 +41,7 @@
                     other_names: values.other_names,
                     address: values.address,
                     email: values.email,
-                    birth_day: values.birth_day,
+                    date_of_birth: values.date_of_birth,
                     personal_title: values.personal_title,
                     role: values.role,
                     contact_number: values.contact_number,
@@ -121,8 +122,8 @@
                                 <Form.Label>Birth Day</Form.Label>
                                 <Form.Control
                                     type="date"
-                                    name="birth_day"
-                                    value={values.birth_day}
+                                    name="date_of_birth"
+                                    value={values.date_of_birth}
                                     onChange={handleChange}
                                     required
                                 />
@@ -130,17 +131,17 @@
                         </Col>
                     </Row>
     
-                    <Form.Group className="mb-3">
-                        <Form.Label>Role</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="role"
-                            value={values.role}
-                            onChange={handleChange}
-                            required
-                            placeholder="Enter role - teacher/principal"
-                        />
-                    </Form.Group>
+                     <Col md={6}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Role</Form.Label>
+                                <Form.Select name="role" value={values.role} onChange={handleChange} required>
+                                    <option value="">Select role</option>
+                                    <option value="teacher">teacher</option>
+                                    <option value="principal">principal</option>
+                                    <option value="admin female">admin</option>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
     
                     <Row>
                         <Col md={6}>

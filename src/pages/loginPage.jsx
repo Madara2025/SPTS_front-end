@@ -34,11 +34,15 @@ function Login() {
 
       // Check for admin role and redirect accordingly
       if (response.data.user && response.data.user.permission == "TRUE" && response.data.user.role == "Administrator") {
-        navigate('/studentManagement');
+        navigate('/adminPage');
 
       }
       else if (response.data.user && response.data.user.permission == "TRUE" && response.data.user.role == "teacher") {
-        navigate('/studentManagement');
+        navigate('/teacherManagement/addteacher');
+
+      }
+      else if (response.data.user && response.data.user.permission == "TRUE" && response.data.user.role == "student") {
+        navigate('/studentPage');
 
       } else {
         console.log("Permission Removed")
@@ -66,7 +70,7 @@ function Login() {
           <Form.Group className="mb-3" controlId="formBasicEmail"  >
             <Form.Label>User Name</Form.Label>
             <Form.Control
-              type="user_name"
+              type="text"
               placeholder="Enter User Name"
               value={user_name}
               onChange={(e) => setUser_name(e.target.value)} />
