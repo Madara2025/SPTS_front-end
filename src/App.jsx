@@ -27,11 +27,11 @@ function App() {
 
           <Route path="/studentManagement" element={<StudentTable />} />
           <Route path="/studentManagement/addStudent" element={<Add_Student />} />
-          <Route path="/studentview" element={<StudentMarksView />} />
+          <Route path="/studentpage/:studet_id" element={<StudentMarksView />} />
           <Route path="/studentManagement/updateStudent/:student_id" element={<UpdateStudent />} />
           <Route path="/teacherManagement" element={<TeacherTable />} />
           <Route path="/teacherManagement/addteacher" element={<Add_Teacher />} />
-          <Route path="/teacherManagement/addstudent" element={<Update_Teacher />} />
+          <Route path="/teacherManagement/updateTeacher/:teacher_id" element={<Update_Teacher />} />
           <Route path="/addAttendance" element={<Add_Attendance />} />
           <Route path="/adminPage" element={<AdminPage />} />
           <Route path="/teacherPage/:teacher_id" element={<TeacherPage />} />

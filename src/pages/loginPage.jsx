@@ -38,7 +38,7 @@ function Login() {
 
       }
       else if (response.data.user && response.data.user.permission == "TRUE" && response.data.user.role == "student") {
-        navigate('/studentPage');
+        navigate('/studentpage/:studet_id');
 
       } else {
         console.log("Permission Removed")

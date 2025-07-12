@@ -74,7 +74,8 @@ function AddStudentMarks() {
                 subject_id: subjectId, // Use the state variable
                 teacher_id: teacherId,
                 marks: parseInt(marksData[sdetails.student_id] || 0),
-                Term_year: termYear
+                Term_year: termYear,
+                assignment_id:sdetails.assignment_id
             }));
             const response = await api.post(`/marks`, marks_submit);
 

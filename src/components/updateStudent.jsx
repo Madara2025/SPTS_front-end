@@ -9,6 +9,7 @@ import api from '../api';
 
 function UpdateStudent() {
     const { student_id } = useParams();
+    
     const navigate = useNavigate();
     const [values, setValues] = useState({
         student_id: student_id || '',
@@ -83,25 +84,25 @@ function UpdateStudent() {
             };
 
             if (values.resetPassword) {
-                dataToUpdate.password = values.nic;
+                dataToUpdate.password = values.parent_nic;
             }
-
-            await api.put(`/employees/${values.empId}`, dataToUpdate);
-            alert('Employee updated successfully!');
-            navigate('/employeeManagement');
+            await api.put(`/students/${values.student_id}`, dataToUpdate);
+            
+            alert('Student updated successfully!');
+            navigate('/studentManagement');
         } catch (error) {
-            console.error('Error updating employee:', error);
-            alert('Error updating employee.');
+            console.error('Error updating student:', error);
+            alert('Error updating student.');
         }
     };
 
     return (
         <div>
-            <h1>Update Employee</h1>
+            <h1>Update Student</h1>
             <Form onSubmit={handleSubmit}>
                 <Row className="mb-4 mt-4">
                     <Form.Group as={Col} md="12">
-                        <Form.Label>Employee ID = {values.empId}</Form.Label>
+                        <Form.Label>Student ID = {values.student_id}</Form.Label>
                     </Form.Group>
                 </Row>
                 <Row>
@@ -279,7 +280,7 @@ function UpdateStudent() {
                 </Row>
 
                 <Button variant="primary" type="submit">
-                    Update Employee
+                    Update Student
                 </Button>
             </Form>
         </div>
